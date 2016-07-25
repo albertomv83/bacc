@@ -1,0 +1,5 @@
+library(openxlsx)
+library(data.table)
+bacc <- as.data.table(read.xlsx("~/bacc/respostes.xlsx"))
+question_titles <- names(bacc)
+question_titles <- gsub("[.]"," ",question_titles)
