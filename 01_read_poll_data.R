@@ -92,8 +92,8 @@ read_one_line <- function(poll_data){
   read_multiple_option_var(poll_data,"10",c("a","b","c","d","e","f","g","altres"))
   read_multiple_option_var(poll_data,"11",c("a","b","c","d","e","altres"))
   read_one_option_var(poll_data,"12",c("a","b","c"))
-  read_multiple_option_var(poll_data,"12bis1-",c("a","b","c","d","e"))
-  read_multiple_option_var(poll_data,"12bis2-",c("a","b","c","d","e"))
+  read_multiple_option_var(poll_data,"12bis1-",c("a","b","c","d","e","f"))
+  read_multiple_option_var(poll_data,"12bis2-",c("a","b","c","d","e","f"))
   read_one_option_var(poll_data,"segur",c("a","b","c"))
   poll_data
 }
