@@ -63,3 +63,31 @@ r8 <- unique(bacc[[16]])
 r8 <- obtain_unique_from_multiple(r8)
 r8 <- c(a=r8[3],b=r8[4],c=r8[5],d=r8[1],e1=r8[2],e2=r8[6])
 bacc <- replace_text_by_options(bacc,r8,names(bacc)[16])
+#question 9 (positiu/negatiu) are free texts
+#question 10 is multiple choice
+r10 <- unique(bacc[[19]])
+r10 <- obtain_unique_from_multiple(r10)
+r10 <- c(a1=r10[1],a2=r10[6],b=r10[2],c1=r10[3],c2=r10[10],
+         d1=r10[4],d2=r10[11],e=r10[7],f=r10[9])
+bacc <- replace_text_by_options(bacc,r10,names(bacc)[19])
+#question 11 is multiple choice
+r11 <- unique(bacc[[20]])
+r11 <- obtain_unique_from_multiple(r11)
+r11 <- c(a=r11[2],b1=r11[5],b2=r11[11],c2=r11[7],c3=r11[10],d=r11[6])
+bacc <- replace_text_by_options(bacc,r11,names(bacc)[20])
+
+r12 <- unique(bacc[[21]])
+r12 <- obtain_unique_from_multiple(r12)
+r12 <- c(b=r12[3],c=r12[2],a=r12[1])
+bacc <- replace_text_by_options(bacc,r12,names(bacc)[21])
+
+
+r12b <- unique(bacc[[23]])
+r12b <- obtain_unique_from_multiple(r12b)
+r12b <- c(a=r12b[1],b=r12b[2],b=r12b[4],c=r12b[5],d=r12b[7],e1=r12b[6],e1=r12b[8])
+bacc <- replace_text_by_options(bacc,r12b,names(bacc)[23])
+
+r12a <- unique(bacc[[24]])
+r12a <- obtain_unique_from_multiple(r12a)
+r12a <- c(a=r12a[5],b=r12a[1],c=r12a[6],d=r12a[4],e=r12a[3],f=r12a[2])
+bacc <- replace_text_by_options(bacc,r12a,names(bacc)[24])
