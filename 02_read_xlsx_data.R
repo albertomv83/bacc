@@ -75,19 +75,23 @@ r11 <- unique(bacc[[20]])
 r11 <- obtain_unique_from_multiple(r11)
 r11 <- c(a=r11[2],b1=r11[5],b2=r11[11],c2=r11[7],c3=r11[10],d=r11[6])
 bacc <- replace_text_by_options(bacc,r11,names(bacc)[20])
-
+#question 12 is simple choice
 r12 <- unique(bacc[[21]])
 r12 <- obtain_unique_from_multiple(r12)
 r12 <- c(b=r12[3],c=r12[2],a=r12[1])
 bacc <- replace_text_by_options(bacc,r12,names(bacc)[21])
-
-
+#question 12b is multiple choice
 r12b <- unique(bacc[[23]])
 r12b <- obtain_unique_from_multiple(r12b)
 r12b <- c(a=r12b[1],b=r12b[2],b=r12b[4],c=r12b[5],d=r12b[7],e1=r12b[6],e1=r12b[8])
 bacc <- replace_text_by_options(bacc,r12b,names(bacc)[23])
-
+#question 12a is multiple choice
 r12a <- unique(bacc[[24]])
 r12a <- obtain_unique_from_multiple(r12a)
 r12a <- c(a=r12a[5],b=r12a[1],c=r12a[6],d=r12a[4],e=r12a[3],f=r12a[2])
 bacc <- replace_text_by_options(bacc,r12a,names(bacc)[24])
+#question about insurance is simple choice
+insurance <- unique(bacc[[25]])
+insurance <- obtain_unique_from_multiple(insurance)
+insurance <- c(a=insurance[3],b=insurance[1],c=insurance[2])
+bacc <- replace_text_by_options(bacc,insurance,names(bacc)[25])
