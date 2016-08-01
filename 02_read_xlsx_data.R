@@ -1,5 +1,3 @@
-library(openxlsx)
-library(data.table)
 replace_text_by_options <- function(dt.in,options,column){
   dt <- copy(dt.in)
   setnames(dt,column,"xXx")
