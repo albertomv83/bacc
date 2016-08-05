@@ -21,6 +21,9 @@ bacc <- as.data.table(read.xlsx("respostes.xlsx"))
 question_titles <- gsub("[.]"," ",names(bacc))
 
 #undo option names
+carnet <- unique(bacc[[5]])
+carnet <- c(s=carnet[1],n=carnet[2])
+bacc <- replace_text_by_options(bacc,carnet,names(bacc)[5])
 #question 1 simple choice
 r1 <-unique(bacc[[8]])
 r1 <- c(a=r1[2],b=r1[1],c=r1[3],d=r1[4])

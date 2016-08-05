@@ -40,13 +40,28 @@ b[,segurc:=extra]
 b[,extra:=NULL]
 
 #start merging
-#noms
 paper_polls <- rbind(a,b)
+#noms
+nom <- list()
 paper_polls[,nom:=ifelse(is.na(nom),NA,
                   ifelse(is.na(cognom1),nom,
                   ifelse(is.na(cognom2),paste(nom,cognom1,sep=" "),
                           paste(nom,cognom1,cognom2,sep=" "))))]
-bacc[[2]]
+nom$title <- question_titles[2]
+nom$answers <- c(paper_polls[,nom],bacc[[2]])
+#sexe
+sexe <- list()
+sexe$title <- question_titles[3]
+sexe$answers <- factor(c(paper_polls[,sexe],sapply(tolower(bacc[[3]]),function(x) substr(x,1,1))))
+#edat
+edat <- list()
+edat$title <- question_titles[4]
+edat$answers <- as.numeric(c(paper_polls[,edat],bacc[[4]]))
+#carnet
+carnet <- list()
+carnet$title <- question_titles[5]
+carnet$answers <- factor(c(paper_polls[,carnet_conduir],bacc[[5]]))
+bacc[[5]]
 
 
 
