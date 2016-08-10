@@ -53,15 +53,139 @@ nom$answers <- c(paper_polls[,nom],bacc[[2]])
 sexe <- list()
 sexe$title <- question_titles[3]
 sexe$answers <- factor(c(paper_polls[,sexe],sapply(tolower(bacc[[3]]),function(x) substr(x,1,1))))
+sexe$options <- c(d="Dona",h="Home")
 #edat
 edat <- list()
 edat$title <- question_titles[4]
 edat$answers <- as.numeric(c(paper_polls[,edat],bacc[[4]]))
 #carnet
-carnet <- list()
-carnet$title <- question_titles[5]
-carnet$answers <- factor(c(paper_polls[,carnet_conduir],bacc[[5]]))
-bacc[[5]]
-
+carnet_conduir <- list()
+carnet_conduir$title <- question_titles[5]
+carnet_conduir$answers <- factor(c(paper_polls[,carnet_conduir],bacc[[5]]))
+carnet_conduir$options <- c(s="Tinc carnet de conduir (B)",n="No tinc carnet")
+#codi postal
+codi_postal <- list()
+codi_postal$title <- question_titles[6]
+codi_postal$answers <- factor(c(paper_polls[,cp],str_pad(bacc[[6]], 5, pad = "0")))
+#email
+email <- list()
+email$title <- question_titles[7]
+email$answers <- c(paper_polls[,email],bacc[[7]])
+#q1
+q1 <- list()
+q1$title <- question_titles[8]
+q1$options <- r1
+q1$answers <- c(join_paper_answers(paper_polls,'1',names(r1)),bacc[[8]])
+#q2
+q2 <- list()
+q2$title <- question_titles[9]
+q2$options <- r2
+q2$answers <- c(join_paper_answers(paper_polls,'2',names(r2)),bacc[[9]])
+#q3
+q3 <- list()
+q3$title <- question_titles[10]
+r3mod <- r3[c('a1','b2','c2','d','e','f')]
+names(r3mod) <- c("a","b","c","d","e","f")
+q3$options <- r3mod
+q3$answers <- c(join_paper_answers(paper_polls,'3',names(r3mod)),bacc[[10]])
+#q4
+q4 <- list()
+q4$title <- question_titles[11]
+q4$options <- r4
+q4$answers <- c(join_paper_answers(paper_polls,'4',names(r4)),bacc[[11]])
+q4$answers[q4$answers==""] <- NA
+#q4bis
+q4bis <- list()
+q4bis$title <- question_titles[12]
+q4bis$options <- r4bis
+q4bis$answers <- c(join_paper_answers(paper_polls,'4bis-',names(r4bis)),bacc[[12]])
+q4bis$answers[q4bis$answers==""] <- NA
+q4bis$answers_exp <- strsplit(paste0(q4bis$answers[!is.na(q4bis$answers)],collapse=", "),", ",fixed=T)[[1]]
+#q5
+q5 <- list()
+q5$title <- question_titles[13]
+r5mod <- r5[c('a2','b3','c1','d','e')]
+names(r5mod) <- c("a","b","c","d","e")
+r5mod <- c(r5mod, f="Altres")
+q5$options <- r5mod
+p <- join_paper_answers(paper_polls,'5',names(r5mod))
+p[nchar(p)>1]<-sapply(p[nchar(p)>1],function(x){paste0(strsplit(x,"")[[1]],collapse=", ")})
+p[p==""]<-NA
+online <- sapply(bacc[[13]],function(x){paste0(substitute_other_options(x,options=names(r5mod)),collapse=", ")})
+q5$answers <- c(p,online)
+q5$answers_exp <- strsplit(paste0(c(p,online),collapse=", "),", ",fixed=T)[[1]]
+#q6
+q6 <- list()
+q6$title <- question_titles[14]
+r6mod <- r6[c('a','b','c','d','e1')]
+names(r6mod) <- c("a","b","c","d","e")
+q6$options <- r6mod
+q6$answers <- c(join_paper_answers(paper_polls,'6',names(r6mod)),bacc[[14]])
+q6$answers[q6$answers==""] <- NA
+#q7
+q7 <- list()
+q7$title <- question_titles[15]
+r7mod <- r7[c('a1','b1','c','d')]
+names(r7mod) <- c("a","b","c","d")
+q7$options <- r7mod
+q7$answers <- c(join_paper_answers(paper_polls,'7',names(r7mod)),bacc[[15]])
+q7$answers[q7$answers==""] <- NA
+#q8
+q8 <- list()
+q8$title <- question_titles[16]
+r8mod <- r8[c('a','b','c','d','e1')]
+names(r8mod) <- c("a","b","c","d","e")
+r8mod <- c(r8mod, f="Altres")
+q8$options <- r8mod
+p <- join_paper_answers(paper_polls,'8',names(r8mod))
+p[nchar(p)>1]<-sapply(p[nchar(p)>1],function(x){paste0(strsplit(x,"")[[1]],collapse=", ")})
+p[p==""]<-NA
+online <- sapply(bacc[[16]],function(x){paste0(substitute_other_options(x,options=names(r8mod)),collapse=", ")})
+q8$answers <- c(p,online)
+q8$answers_exp <- strsplit(paste0(c(p,online),collapse=", "),", ",fixed=T)[[1]]
+#q10
+q10 <- list()
+q10$title <- question_titles[19]
+r10mod <- r10[c('a2','b','c2','d2','e','f')]
+names(r10mod) <- c("a","b","c","d","e","f")
+r10mod <- c(r10mod, g="Altres")
+q10$options <- r10mod
+p <- join_paper_answers(paper_polls,'10',names(r10mod))
+p[nchar(p)>1]<-sapply(p[nchar(p)>1],function(x){paste0(strsplit(x,"")[[1]],collapse=", ")})
+p[p==""]<-NA
+online <- sapply(bacc[[19]],function(x){paste0(substitute_other_options(x,options=names(r10mod)),collapse=", ")})
+online[online=="NA"]<-NA
+q10$answers <- c(p,online)
+q10$answers_exp <- strsplit(paste0(c(p,online),collapse=", "),", ",fixed=T)[[1]]
+#q11
+q11 <- list()
+q11$title <- question_titles[20]
+r11mod <- r11[c('a','b2','c3','d')]
+names(r11mod) <- c("a","b","c","d")
+r11mod <- c(r11mod, e="Altres")
+q11$options <- r11mod
+p <- join_paper_answers(paper_polls,'11',names(r11mod))
+p[nchar(p)>1]<-sapply(p[nchar(p)>1],function(x){paste0(strsplit(x,"")[[1]],collapse=", ")})
+p[p==""]<-NA
+online <- sapply(bacc[[20]],function(x){paste0(substitute_other_options(x,options=names(r11mod)),collapse=", ")})
+online[online=="NA"]<-NA
+q11$answers <- c(p,online)
+q11$answers_exp <- strsplit(paste0(c(p,online),collapse=", "),", ",fixed=T)[[1]]
+#q12
+q12 <- list()
+q12$title <- question_titles[21]
+r12mod <- r12[c('a','b','c')]
+names(r12mod) <- c("a","b","c")
+q12$options <- r12mod
+q12$answers <- c(join_paper_answers(paper_polls,'12',names(r12mod)),bacc[[21]])
+q12$answers[q12$answers==""] <- NA
+#q12bis1
+q12bis1 <- list()
+q12bis1$title <- question_titles[24]
+q12bis1$options <- r12a
+q12bis1$answers <- c(join_paper_answers(paper_polls,'12bis1-',names(r12a)),bacc[[24]])
+q12bis1$answers[q12bis1$answers==""] <- NA
+#leave only answers that relate to 12 option a
+q12bis1$answers <- q12bis1$answers[q12$answers=="a"]
 
 

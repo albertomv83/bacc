@@ -1,5 +1,7 @@
 library(openxlsx)
 library(data.table)
+library(stringr)
+library(ggplot2)
 col_names <-c("registre","nom","cognom1","cognom2","edat","email","cp",
               "sexe","carnet_conduir",
               "1a","1b","1c","1d",
@@ -22,4 +24,34 @@ create_initial_table <- function(){
   poll_data <- data.table(matrix(ncol=length(col_names),nrow=0))
   colnames(poll_data)<-col_names
   poll_data <- poll_data[, lapply(.SD, as.character)]
+}
+
+join_paper_answers <- function(dt,name_answer, options){
+  dt.copy <- copy(dt)
+  columns <- sapply(options, function(x){paste0(name_answer,x)})
+  for(option in options){
+    setnames(dt.copy,paste0(name_answer,option),"xxXxx")
+    dt.copy[!is.na(xxXxx),xxXxx:=option]
+    setnames(dt.copy,"xxXxx",paste0(name_answer,option))
+  }
+  dt.return <- dt.copy[,.(answer=paste_wo_na(.SD[1,])),by=registre,.SDcols=columns]
+  dt.return[,answer]
+}
+paste_wo_na <- function(v){
+  v <- list(v)
+  v <- paste0(sapply(v,function(x) {x[is.na(x)] <- ""; x}),collapse="")
+  v
+}
+substitute_other_options <- function(answer,options){
+  splitted <- strsplit(answer,", ",fixed=T)[[1]]
+  if(is.na(splitted)){
+    answer
+  }else{
+    if(all(sapply(splitted,nchar)==1)){
+      splitted
+    }else{
+      splitted[nchar(splitted)!=1]<-tail(options, n=1)
+      unique(splitted)
+    }
+  }
 }
