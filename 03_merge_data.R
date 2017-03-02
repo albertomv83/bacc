@@ -186,6 +186,7 @@ q12bis1$options <- r12a
 q12bis1$answers <- c(join_paper_answers(paper_polls,'12bis1-',names(r12a)),bacc[[24]])
 q12bis1$answers[q12bis1$answers==""] <- NA
 #leave only answers that relate to 12 option a
+q12bis1$all_answers <- q12bis1$answers
 q12bis1$answers <- q12bis1$answers[q12$answers=="a"]
 #q12bis2
 q12bis2 <- list()
@@ -201,6 +202,7 @@ online <- sapply(bacc[[23]],function(x){paste0(substitute_other_options(x,option
 online[online=="NA"]<-NA
 q12bis2$answers <- c(p,online)
 #leave only answers that relate to 12 option b
+q12bis2$all_answers <- q12bis2$answers
 q12bis2$answers <- q12bis2$answers[q12$answers=="b"]
 q12bis2$answers_exp <- strsplit(paste0(q12bis2$answers,collapse=", "),", ",fixed=T)[[1]]
 
