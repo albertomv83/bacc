@@ -84,7 +84,7 @@ bacc <- replace_text_by_options(bacc,r12,names(bacc)[21])
 #question 12b is multiple choice
 r12b <- unique(bacc[[23]])
 r12b <- obtain_unique_from_multiple(r12b)
-r12b <- c(a=r12b[1],b1=r12b[2],b2=r12b[4],c=r12b[5],d=r12b[7],e1=r12b[6],e1=r12b[8])
+r12b <- c(a1=r12b[1],a2=r12b[2],b=r12b[4],c=r12b[5],d=r12b[7],e1=r12b[6],e1=r12b[8])
 bacc <- replace_text_by_options(bacc,r12b,names(bacc)[23])
 #question 12a is multiple choice
 r12a <- unique(bacc[[24]])

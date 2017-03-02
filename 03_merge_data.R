@@ -190,7 +190,7 @@ q12bis1$answers <- q12bis1$answers[q12$answers=="a"]
 #q12bis2
 q12bis2 <- list()
 q12bis2$title <- question_titles[23]
-r12bmod <- r12b[c('a','b1','c','d','e1')]
+r12bmod <- r12b[c('a1','b','c','d','e1')]
 names(r12bmod) <- c("a","b","c","d","e")
 r12bmod <- c(r12bmod, f="Altres")
 q12bis2$options <- r12bmod
