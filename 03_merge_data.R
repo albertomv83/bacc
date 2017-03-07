@@ -49,38 +49,46 @@ paper_polls[,nom:=ifelse(is.na(nom),NA,
                           paste(nom,cognom1,cognom2,sep=" "))))]
 nom$title <- question_titles[2]
 nom$answers <- c(paper_polls[,nom],bacc[[2]])
+nom$dt <- data.table(id=1:306,nom=nom$answers)
 #sexe
 sexe <- list()
 sexe$title <- question_titles[3]
 sexe$answers <- factor(c(paper_polls[,sexe],sapply(tolower(bacc[[3]]),function(x) substr(x,1,1))))
 sexe$options <- c(d="Dona",h="Home")
+sexe$dt <- convert_vector_options_to_dt(sexe$answers,"sexe")
 #edat
 edat <- list()
 edat$title <- question_titles[4]
 edat$answers <- as.numeric(c(paper_polls[,edat],bacc[[4]]))
+edat$dt <- data.table(id=1:306,edat=edat$answers)
 #carnet
 carnet_conduir <- list()
 carnet_conduir$title <- question_titles[5]
 carnet_conduir$answers <- factor(c(paper_polls[,carnet_conduir],bacc[[5]]))
+carnet_conduir$dt <- convert_vector_options_to_dt(carnet_conduir$answers,"carnet_conduir")
 carnet_conduir$options <- c(s="Tinc carnet de conduir (B)",n="No tinc carnet")
 #codi postal
 codi_postal <- list()
 codi_postal$title <- question_titles[6]
 codi_postal$answers <- factor(c(paper_polls[,cp],str_pad(bacc[[6]], 5, pad = "0")))
+codi_postal$dt <- data.table(id=1:306,codi_postal=codi_postal$answers)
 #email
 email <- list()
 email$title <- question_titles[7]
 email$answers <- c(paper_polls[,email],bacc[[7]])
+email$dt <- data.table(id=1:306,email=email$answers)
 #q1
 q1 <- list()
 q1$title <- question_titles[8]
 q1$options <- r1
 q1$answers <- c(join_paper_answers(paper_polls,'1',names(r1)),bacc[[8]])
+q1$dt <- convert_vector_options_to_dt(q1$answers,"q1")
 #q2
 q2 <- list()
 q2$title <- question_titles[9]
 q2$options <- r2
 q2$answers <- c(join_paper_answers(paper_polls,'2',names(r2)),bacc[[9]])
+q2$dt <- convert_vector_options_to_dt(q2$answers,"q2")
 #q3
 q3 <- list()
 q3$title <- question_titles[10]
@@ -88,18 +96,21 @@ r3mod <- r3[c('a1','b2','c2','d','e','f')]
 names(r3mod) <- c("a","b","c","d","e","f")
 q3$options <- r3mod
 q3$answers <- c(join_paper_answers(paper_polls,'3',names(r3mod)),bacc[[10]])
+q3$dt <- convert_vector_options_to_dt(q3$answers,"q3")
 #q4
 q4 <- list()
 q4$title <- question_titles[11]
 q4$options <- r4
 q4$answers <- c(join_paper_answers(paper_polls,'4',names(r4)),bacc[[11]])
 q4$answers[q4$answers==""] <- NA
+q4$dt <- convert_vector_options_to_dt(q4$answers,"q4")
 #q4bis
 q4bis <- list()
 q4bis$title <- question_titles[12]
 q4bis$options <- r4bis
 q4bis$answers <- c(join_paper_answers(paper_polls,'4bis-',names(r4bis)),bacc[[12]])
 q4bis$answers[q4bis$answers==""] <- NA
+q4bis$dt <- convert_vector_options_to_dt(q4bis$answers,"q4bis")
 q4bis$answers_exp <- strsplit(paste0(q4bis$answers[!is.na(q4bis$answers)],collapse=", "),", ",fixed=T)[[1]]
 #q5
 q5 <- list()
@@ -113,6 +124,7 @@ p[nchar(p)>1]<-sapply(p[nchar(p)>1],function(x){paste0(strsplit(x,"")[[1]],colla
 p[p==""]<-NA
 online <- sapply(bacc[[13]],function(x){paste0(substitute_other_options(x,options=names(r5mod)),collapse=", ")})
 q5$answers <- c(p,online)
+q5$dt <- convert_vector_options_to_dt(q5$answers,"q5")
 q5$answers_exp <- strsplit(paste0(c(p,online),collapse=", "),", ",fixed=T)[[1]]
 #q6
 q6 <- list()
@@ -122,6 +134,7 @@ names(r6mod) <- c("a","b","c","d","e")
 q6$options <- r6mod
 q6$answers <- c(join_paper_answers(paper_polls,'6',names(r6mod)),bacc[[14]])
 q6$answers[q6$answers==""] <- NA
+q6$dt <- convert_vector_options_to_dt(q6$answers,"q6")
 #q7
 q7 <- list()
 q7$title <- question_titles[15]
@@ -130,6 +143,7 @@ names(r7mod) <- c("a","b","c","d")
 q7$options <- r7mod
 q7$answers <- c(join_paper_answers(paper_polls,'7',names(r7mod)),bacc[[15]])
 q7$answers[q7$answers==""] <- NA
+q7$dt <- convert_vector_options_to_dt(q7$answers,"q7")
 #q8
 q8 <- list()
 q8$title <- question_titles[16]
@@ -142,6 +156,7 @@ p[nchar(p)>1]<-sapply(p[nchar(p)>1],function(x){paste0(strsplit(x,"")[[1]],colla
 p[p==""]<-NA
 online <- sapply(bacc[[16]],function(x){paste0(substitute_other_options(x,options=names(r8mod)),collapse=", ")})
 q8$answers <- c(p,online)
+q8$dt <- convert_vector_options_to_dt(q8$answers,"q8")
 q8$answers_exp <- strsplit(paste0(c(p,online),collapse=", "),", ",fixed=T)[[1]]
 #q10
 q10 <- list()
@@ -156,6 +171,7 @@ p[p==""]<-NA
 online <- sapply(bacc[[19]],function(x){paste0(substitute_other_options(x,options=names(r10mod)),collapse=", ")})
 online[online=="NA"]<-NA
 q10$answers <- c(p,online)
+q10$dt <- convert_vector_options_to_dt(q10$answers,"q10")
 q10$answers_exp <- strsplit(paste0(c(p,online),collapse=", "),", ",fixed=T)[[1]]
 #q11
 q11 <- list()
@@ -170,6 +186,7 @@ p[p==""]<-NA
 online <- sapply(bacc[[20]],function(x){paste0(substitute_other_options(x,options=names(r11mod)),collapse=", ")})
 online[online=="NA"]<-NA
 q11$answers <- c(p,online)
+q11$dt <- convert_vector_options_to_dt(q11$answers,"q11")
 q11$answers_exp <- strsplit(paste0(c(p,online),collapse=", "),", ",fixed=T)[[1]]
 #q12
 q12 <- list()
@@ -179,12 +196,14 @@ names(r12mod) <- c("a","b","c")
 q12$options <- r12mod
 q12$answers <- c(join_paper_answers(paper_polls,'12',names(r12mod)),bacc[[21]])
 q12$answers[q12$answers==""] <- NA
+q12$dt <- convert_vector_options_to_dt(q12$answers,"q12")
 #q12bis1
 q12bis1 <- list()
 q12bis1$title <- question_titles[24]
 q12bis1$options <- r12a
 q12bis1$answers <- c(join_paper_answers(paper_polls,'12bis1-',names(r12a)),bacc[[24]])
 q12bis1$answers[q12bis1$answers==""] <- NA
+q12bis1$dt <- convert_vector_options_to_dt(q12bis1$answers,"q12bis1")
 #leave only answers that relate to 12 option a
 q12bis1$all_answers <- q12bis1$answers
 q12bis1$answers <- q12bis1$answers[q12$answers=="a"]
@@ -203,6 +222,7 @@ online[online=="NA"]<-NA
 q12bis2$answers <- c(p,online)
 #leave only answers that relate to 12 option b
 q12bis2$all_answers <- q12bis2$answers
+q12bis2$dt <- convert_vector_options_to_dt(q12bis2$answers,"q12bis2")
 q12bis2$answers <- q12bis2$answers[q12$answers=="b"]
 q12bis2$answers_exp <- strsplit(paste0(q12bis2$answers,collapse=", "),", ",fixed=T)[[1]]
 

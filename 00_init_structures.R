@@ -55,3 +55,23 @@ substitute_other_options <- function(answer,options){
     }
   }
 }
+
+convert_vector_options_to_dt <- function(o,qname){
+  dt <- data.table(options = o)
+  unique_op <- o %>% 
+    paste(collapse=", ") %>% 
+    strsplit(", ",fixed = T)
+  unique_op <- unique_op[[1]] %>% 
+    unique
+  assign_columns <- function(dt_in){
+    dt_in[, (unique_op) := T]
+  }
+  dt[, (unique_op) := F] %>% 
+    .[, id := .I]
+  for(op in unique_op){
+    dt[, (op) := grepl(op, options, fixed=T)]
+  }
+  dt[, options:=NULL] %>% 
+    setnames(unique_op,sapply(unique_op,function(x)paste0(qname,"_",x)))
+  dt
+}

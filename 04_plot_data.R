@@ -40,7 +40,52 @@ qlist$q12 <- q12
 qlist$q12bis1 <- q12bis1
 qlist$q12bis2 <- q12bis2
 
+#plot all questions
 for (q in names(qlist)){
   p <- plot_answer(qlist[[q]])
   ggsave(paste0(q,".png"),p, width=400,height=210,units="mm")
 }
+
+qlist <- list()
+qlist$nom <- nom
+qlist$email <- email
+qlist$codi_postal <- codi_postal
+qlist$edat <- edat
+qlist$sexe <- sexe
+qlist$carnet_conduir <- carnet_conduir
+qlist$q1 <- q1
+qlist$q2 <- q2
+qlist$q3 <- q3
+qlist$q4 <- q4
+qlist$q5 <- q5
+qlist$q6 <- q6
+qlist$q7 <- q7
+qlist$q8 <- q8
+qlist$q10 <- q10
+qlist$q11 <- q11
+qlist$q12 <- q12
+qlist$q12bis1 <- q12bis1
+qlist$q12bis2 <- q12bis2
+
+#merge al dt's
+res <- data.table(id=1:306)
+for (q in names(qlist)){
+  print(qlist[[q]]$dt)
+  res <- merge(res,qlist[[q]]$dt,by="id")
+}
+
+res[q12_a != T, `:=`(q12bis1_a = NA,
+                     q12bis1_b = NA,
+                     q12bis1_c = NA,
+                     q12bis1_d = NA,
+                     q12bis1_e = NA,
+                     q12bis1_f = NA,
+                     q12bis1_NA = NA)]
+
+res[q12_b != T, `:=`(q12bis2_a = NA,
+                     q12bis2_b = NA,
+                     q12bis2_c = NA,
+                     q12bis2_d = NA,
+                     q12bis2_e = NA,
+                     q12bis2_f = NA,
+                     q12bis2_NA = NA)]
